@@ -22,3 +22,10 @@
 ### Lombok 적용
 JPA를 사용하면서 vo의 getter, setter, constructor 등을 간단하게 설정하기 위해<br>
 Lombok을 적용하여 @Getter, @Setter, @NoArgConstructor 등의 어노테이션 이용
+<br><br>
+
+### Security는 잠시 접어두기..
+Springboot 프로젝트 생성 시 security를 설정하면 자동으로 dependency가 추가되는데<br>
+그대로 프로젝트를 실행하면 security 페이지가 나오면서 로그인이 안되면 다른 작업을 확인할 수 없다.<br>
+**그렇게 작업할 순 없으니!!**
+build.gradle에서 security 관련 dependency는 주석 처리하고 dependency refresh를 해주자.
