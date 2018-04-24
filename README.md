@@ -1,6 +1,6 @@
 # yongdubot
 
-매주 진행하는 풋살 모임 신청 인원 모집이나 일정 체크를 일일이 주최자 혹은 그 주변인이 채팅이나
+매주 진행하는 풋살 모임 신청 인원 모집이나 일정 체크를 일일이 주최자 혹은 그 주변인이 채팅이나<br>
 카카오 설문 기능으로 모집하는 게 번거롭다고 생각하여 봇으로 구현하면 좋을 것 같아 진행
 
 ### 개발 환경
@@ -17,3 +17,8 @@
 배포되는 환경은 아래와 같습니다.
 - **OS** : Linux CentOS
 - **WAS** : Tomcat
+<br><br>
+
+### Lombok 적용
+JPA를 사용하면서 vo의 getter, setter, constructor 등을 간단하게 설정하기 위해<br>
+Lombok을 적용하여 @Getter, @Setter, @NoArgConstructor 등의 어노테이션 이용
