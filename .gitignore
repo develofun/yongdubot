@@ -4,3 +4,5 @@ yongdubot/gradle/wrapper/gradle-wrapper.jar
 yongdubot/gradle/wrapper/gradle-wrapper.properties
 yongdubot/bin/main/application.properties
 yongdubot/src/main/resources/application.properties
+yongdubot/.mvn/wrapper/maven-wrapper.jar
+yongdubot/.mvn/wrapper/
