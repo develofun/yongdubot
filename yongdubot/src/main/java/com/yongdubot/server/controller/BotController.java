@@ -31,14 +31,14 @@ public class BotController {
 		member.setUser_key(user_key);
 		member.setLevel(ConstValues.AUTHORITY_AGENT);
 		
-		memberService.save(member);
+		memberService.insertMember(member);
 	}
 	
 	@GetMapping("/keyboard")
 	public KeyboardVO getKeyboard() {
 		return new KeyboardVO("buttons", 
 				new String[]{
-					ConstValues.MENU_ATTENDANCE, 
+					ConstValues.MENU_ATTENDANCE,
 					ConstValues.MENU_CHECK_ATTEDANT_LIST, 
 					ConstValues.MENU_CHECK_ATTENDANCE
 					});
@@ -48,10 +48,20 @@ public class BotController {
 	public ResponseMessageVO message(@RequestBody RequestMessageVO vo) {
 		System.out.println("processing" + vo.toString());
 		
+		return getResponseMessage(vo.getContent());
+	}
+	
+	@DeleteMapping("/friend/{user_key}")
+	public void deleteFriend(@PathVariable("user_key") String user_key) {
+		// 유저 삭제
+	}
+	
+	private ResponseMessageVO getResponseMessage(String requestContent) {
+		
 		ResponseMessageVO responseMessageVO = new ResponseMessageVO();
 		MessageVO messageVO = new MessageVO();
 		
-		if(vo.getContent().equals(ConstValues.MENU_ATTENDANCE)) {
+		if(requestContent.equals(ConstValues.MENU_ATTENDANCE)) {
 			messageVO.setText("참석 여부를 체크해 주세요.");
 			responseMessageVO.setKeyboardVO(new KeyboardVO("buttons", 
 				new String[]{
@@ -60,17 +70,15 @@ public class BotController {
 					ConstValues.BUTTON_ATTENDANCE_ABSENT
 					}
 			));
-		} else if(vo.getContent().equals(ConstValues.MENU_CHECK_ATTEDANT_LIST)) {
+		} else if(requestContent.equals(ConstValues.MENU_CHECK_ATTEDANT_LIST)) {
 			
-		} else if(vo.getContent().equals(ConstValues.MENU_CHECK_ATTENDANCE)) {
+		} else if(requestContent.equals(ConstValues.MENU_CHECK_ATTENDANCE)) {
 			
-		} else if(vo.getContent().equals(ConstValues.BUTTON_ATTENDANCE_ATTEND)) {
+		} else if(requestContent.equals(ConstValues.BUTTON_ATTENDANCE_ATTEND) ||
+				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_POSTPONE) ||
+				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_ABSENT)) {
 			
-		} else if(vo.getContent().equals(ConstValues.BUTTON_ATTENDANCE_POSTPONE)) {
-			
-		} else if(vo.getContent().equals(ConstValues.BUTTON_ATTENDANCE_ABSENT)) {
-			
-		} else if(vo.getContent().indexOf("메인") > -1) {
+		} else if(requestContent.indexOf("메인") > -1) {
 			messageVO.setText("메인 메뉴를 호출합니다.");
 			responseMessageVO.setKeyboardVO(new KeyboardVO("buttons", 
 				new String[]{
@@ -79,13 +87,9 @@ public class BotController {
 					ConstValues.MENU_CHECK_ATTENDANCE
 					}));
 		}
-				
+		
+		responseMessageVO.setMessageVO(messageVO);
 		return responseMessageVO;
-	}
-	
-	@DeleteMapping("/friend/{user_key}")
-	public void deleteFriend(@PathVariable("user_key") String user_key) {
-		// 유저 삭제
 	}
 	
 }

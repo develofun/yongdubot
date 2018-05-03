@@ -81,8 +81,18 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<url>http://210.89.188.181:8080/manager/text</url>
+					<path>/</path>
+					<username>develofun</username>
+					<password>rhfueo04)$</password>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
-
 
 </project>

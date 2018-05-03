@@ -1,14 +1,10 @@
 package com.yongdubot.server.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
 import com.yongdubot.server.domain.Members;
 import com.yongdubot.server.mappers.MemberMapper;
-import com.yongdubot.server.repository.MemberRepository;
 
 @Repository
 public class MemberServiceImpl implements MemberService {
@@ -17,25 +13,28 @@ public class MemberServiceImpl implements MemberService {
 	private MemberMapper memberMapper;
 	
 	@Override
-	public int save(Members member) {
+	public int insertMember(Members member) {
 		return memberMapper.insertMember(member);
 	}
 
 	@Override
-	public int update(Members members) {
-		// TODO Auto-generated method stub
+	public int updateMember(Members member) {
+		if(member.getName() != "") {
+			memberMapper.updateMemberName(member);
+		} else if(member.getNickname() != "") {
+			memberMapper.updateMemberNickName(member);
+		}
 		return 0;
 	}
 
 	@Override
-	public Members findByUserkey(String user_key) {
-		// TODO Auto-generated method stub
-		return null;
+	public Members findMemberByUserkey(String user_key) {
+		return memberMapper.findMemberByUserkey(user_key);		
 	}
 
 	@Override
-	public List<Members> findAll() {
-		return memberMapper.findAllMembers();
+	public int dropMember(String user_key) {
+		return memberMapper.dropMember(user_key);
 	}
 
 }

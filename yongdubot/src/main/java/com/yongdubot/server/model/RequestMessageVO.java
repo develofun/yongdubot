@@ -15,5 +15,4 @@ public class RequestMessageVO {
 	private String user_key;
 	private String type;
 	private String content;
-		
 }
