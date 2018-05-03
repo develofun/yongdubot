@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yongdubot.server.common.ConstValues;
 import com.yongdubot.server.domain.Members;
+import com.yongdubot.server.mappers.MemberMapper;
 import com.yongdubot.server.model.KeyboardVO;
 import com.yongdubot.server.model.MessageVO;
 import com.yongdubot.server.model.RequestMessageVO;
@@ -39,8 +40,8 @@ public class BotController {
 		return new KeyboardVO("buttons", 
 				new String[]{
 					ConstValues.MENU_ATTENDANCE,
-					ConstValues.MENU_CHECK_ATTEDANT_LIST, 
-					ConstValues.MENU_CHECK_ATTENDANCE
+					ConstValues.MENU_CHECK_ATTENDANCE,
+					ConstValues.MENU_MY_INFORMATION 
 					});
 	}
 	
@@ -53,7 +54,7 @@ public class BotController {
 	
 	@DeleteMapping("/friend/{user_key}")
 	public void deleteFriend(@PathVariable("user_key") String user_key) {
-		// 유저 삭제
+		memberService.dropMember(user_key);
 	}
 	
 	private ResponseMessageVO getResponseMessage(String requestContent) {
@@ -70,10 +71,6 @@ public class BotController {
 					ConstValues.BUTTON_ATTENDANCE_ABSENT
 					}
 			));
-		} else if(requestContent.equals(ConstValues.MENU_CHECK_ATTEDANT_LIST)) {
-			
-		} else if(requestContent.equals(ConstValues.MENU_CHECK_ATTENDANCE)) {
-			
 		} else if(requestContent.equals(ConstValues.BUTTON_ATTENDANCE_ATTEND) ||
 				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_POSTPONE) ||
 				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_ABSENT)) {
@@ -83,8 +80,8 @@ public class BotController {
 			responseMessageVO.setKeyboardVO(new KeyboardVO("buttons", 
 				new String[]{
 					ConstValues.MENU_ATTENDANCE, 
-					ConstValues.MENU_CHECK_ATTEDANT_LIST, 
-					ConstValues.MENU_CHECK_ATTENDANCE
+					ConstValues.MENU_CHECK_ATTENDANCE,
+					ConstValues.MENU_MY_INFORMATION 
 					}));
 		}
 		
