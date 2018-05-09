@@ -2,7 +2,7 @@ package com.yongdubot.server.service;
 
 import com.yongdubot.server.domain.Match;
 
-public interface MatchServicce {
+public interface MatchService {
 //	경기 등록
 	int registerMatch(Match match);
 	

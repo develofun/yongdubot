@@ -9,7 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ResponseMessageVO {
-	private MessageVO messageVO;
-	private KeyboardVO keyboardVO;
+public class Photo {
+	private String url;
+	private int width;
+	private int height;
 }

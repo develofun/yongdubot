@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yongdubot.server.common.ConstValues;
 import com.yongdubot.server.domain.Members;
-import com.yongdubot.server.mappers.MemberMapper;
-import com.yongdubot.server.model.KeyboardVO;
-import com.yongdubot.server.model.MessageVO;
-import com.yongdubot.server.model.RequestMessageVO;
-import com.yongdubot.server.model.ResponseMessageVO;
+import com.yongdubot.server.model.Keyboard;
+import com.yongdubot.server.model.Message;
+import com.yongdubot.server.model.RequestMessage;
+import com.yongdubot.server.model.ResponseMessage;
 import com.yongdubot.server.service.MemberService;
 
 @RestController
@@ -36,8 +35,8 @@ public class BotController {
 	}
 	
 	@GetMapping("/keyboard")
-	public KeyboardVO getKeyboard() {
-		return new KeyboardVO("buttons", 
+	public Keyboard getKeyboard() {
+		return new Keyboard("buttons", 
 				new String[]{
 					ConstValues.MENU_ATTENDANCE,
 					ConstValues.MENU_CHECK_ATTENDANCE,
@@ -46,10 +45,10 @@ public class BotController {
 	}
 	
 	@PostMapping("/message")
-	public ResponseMessageVO message(@RequestBody RequestMessageVO vo) {
-		System.out.println("processing" + vo.toString());
+	public ResponseMessage message(@RequestBody RequestMessage request) {
+		System.out.println("processing" + request.toString());
 		
-		return getResponseMessage(vo.getContent());
+		return getResponseMessage(request.getContent());
 	}
 	
 	@DeleteMapping("/friend/{user_key}")
@@ -57,14 +56,13 @@ public class BotController {
 		memberService.dropMember(user_key);
 	}
 	
-	private ResponseMessageVO getResponseMessage(String requestContent) {
-		
-		ResponseMessageVO responseMessageVO = new ResponseMessageVO();
-		MessageVO messageVO = new MessageVO();
+	private ResponseMessage getResponseMessage(String requestContent) {		
+		ResponseMessage responseMessage = new ResponseMessage();
+		Message message = new Message();
 		
 		if(requestContent.equals(ConstValues.MENU_ATTENDANCE)) {
-			messageVO.setText("참석 여부를 체크해 주세요.");
-			responseMessageVO.setKeyboardVO(new KeyboardVO("buttons", 
+			message.setText("참석 여부를 체크해 주세요.");
+			responseMessage.setKeyboard(new Keyboard("buttons", 
 				new String[]{
 					ConstValues.BUTTON_ATTENDANCE_ATTEND, 
 					ConstValues.BUTTON_ATTENDANCE_POSTPONE, 
@@ -75,9 +73,13 @@ public class BotController {
 				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_POSTPONE) ||
 				requestContent.equals(ConstValues.BUTTON_ATTENDANCE_ABSENT)) {
 			
+			
+			
+			message.setText("[" + requestContent + "]을 선택하셨습니다.");
+			
 		} else if(requestContent.indexOf("메인") > -1) {
-			messageVO.setText("메인 메뉴를 호출합니다.");
-			responseMessageVO.setKeyboardVO(new KeyboardVO("buttons", 
+			message.setText("메인 메뉴를 호출합니다.");
+			responseMessage.setKeyboard(new Keyboard("buttons", 
 				new String[]{
 					ConstValues.MENU_ATTENDANCE, 
 					ConstValues.MENU_CHECK_ATTENDANCE,
@@ -85,8 +87,8 @@ public class BotController {
 					}));
 		}
 		
-		responseMessageVO.setMessageVO(messageVO);
-		return responseMessageVO;
+		responseMessage.setMessage(message);
+		return responseMessage;
 	}
 	
 }

@@ -20,6 +20,5 @@ public class YongdubotApplicationTests {
 		Members member = new Members();
 		member.setUser_key("k123");
 		service.insertMember(member);
-
 	}
 }

@@ -11,7 +11,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class KeyboardVO {
+public class Keyboard {
 	private String type;
 	private String[] buttons;		
 }

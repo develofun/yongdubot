@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageVO {
+public class Message {
 	private String text;
-	private PhotoVO photoVO;
-	private MessageButtonVO messageButtonVO;
+	private Photo photo;
+	private MessageButton messageButton;
 }
